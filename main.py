@@ -1,3 +1,4 @@
+import pdb
 from config import *
 from handlers import *
 from utils import *
@@ -17,6 +18,8 @@ def webhook():
     bot.set_webhook(url=SERVER_URL + '/' + TOKEN)
     return "Application running!", 200
 
+
+# pdb.set_trace()
 
 if __name__ == "__main__":
 

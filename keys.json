@@ -1,10 +1,12 @@
 {
-    "web": {
-        "client_id": "350752412577-rqiqg0u4o5b3dijr4m0bcjho6coe0tpt.apps.googleusercontent.com",
-        "project_id": "pka-assistant",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_secret":"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"
-    }
+  "type": "service_account",
+  "project_id": "pka-assistant",
+  "private_key_id": "03dbed164bcfc6cb5a490fcae5b358b231579021",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0rLDDttDKX5Ea\n1Y73hy8jm/0B5808xzXye6fvSdgNpzGoM03EHU15dntNRlW4ZgtlKup/7f9O5vbz\n9/4HfVGaENgyY+d2DqnZbAXCqSrvrzKhKO+wbrXZTgksF8kDXSLrMrgWTFgLtD+E\n00Cs0N/e/4i0Cskn6qNoAzF13229gDDTYO2TS5kwJnA/k6RgUGqAUxiqVsKeo0DP\nM5EjhelkZr6Wz8MUTQPefnSTVtp1ypXyQKEIkPnp87gmu5aD147cXx05ChCk+Rly\nZqZW7Yd+QDexrtfZ1UcC6g3O5fZXdGcuimoMyhRQNjaW81geCiMIT96/qZpNM51B\n2wPiaQkVAgMBAAECggEAAUVZtPa7P0Eu1x57c/hKd5ioTfQgeHX6Ritiggdl8qqj\nach6mo+ONPWFZoTBI5vsJpkHr0CwVBDB2fN7oPfbtBa8PpZ/UVBHF5Vv8O+Zsrfr\nxkBwdzBALTgkTmAYdOKZ1Ue1DcsZr3NkIv4NbWnGuV3Yy1NsGNDIt3mWRnr83aFf\nL/HGlGxmTnlA3v02rrr6N6G96crFpx1NWCIU9/614ja5grXMfW3GkQJ7WNprcPHF\ncaXCbNRFhbPDUPMV3FaPiI4Umn54Et3o5q6gHLpuM3FboxThVB6cRqPOMZMjM7Jg\n1Y3SmybuEIXNfMEBitNQp82j4fEGNlJmPaR1ilJbIQKBgQDZRQpf9+zhaDseka5E\n1seszD81GNws3/LjUSXg0oAtzSEvy5Oh5OziMunzNO8b1YqVvyPgiYqDaJJ/e5SP\n+yEurMGiIkDckcbuiYig33gYft6S4Av1dXI2QvhOBT3O1BoVEYptt5BynbAJP34t\n6WjSxakbr6MtJe7pxGiU48FnnQKBgQDU4afkrkMaJFiGTKs/XC/rdMtlNyMnTN/e\nFWrszZdK53Rbdqe/4O29RwqW1wm7pa9nQXACQHFxhan1FHBusq6sMylVAjL0Bvz8\nfWYwB4oFALyryz2W3pcLnOoRNTQ3tZByW/DnPrcDLm7ZLhcm95/vkeWv2+CUY3VB\noJk0QMt52QKBgDUo2k/+1juUiBqDpHL9Zh+WXcS9D2n/ZWtO+IiYmHocXYlXMwkC\nfR8fO/Sgt/xEdEMNYFbY8EYUuPtuHjxYQpcr97iWzu3o0RaeGgragoTjzct7/BET\nql0yZ5SXXbcUWEldYFRV/Ia+pEqu+U18dYRUjnrSr4clZ95Uiw4a58BVAoGBALfH\nv+v6TU/KROpcUhK3AV+iSt2shhqtkS7nCpI4wv4VZyx2+Ub7ZgLby9aA+pQW66CW\nq54mCEna/Ojppk7Kz2U2Hd6XsWlehxVrJMceGxdKlZcyNI+Exp1t79y/M79MbdFs\nckMQr2p9sZCo66/mYxqtt77kcbNpUZdAkEK+FWuxAoGAWwTGhoKOuGgc40IupEIq\nKCA9hG8WfbGaXHmm+DdfF0uU+bNP0uzMADLuK7gkSljIHqwHBB3pM9T8PMPeWgOZ\nJXsmP+eFMF+HGYyyceUPvbUzIdbg2ECVnkHjyUn5Ib1nUfUcP4MOdMiNhYOLTv2X\n3I3HwXXhrM0W58aDad4MT4E=\n-----END PRIVATE KEY-----\n",
+  "client_email": "pka-admin@pka-assistant.iam.gserviceaccount.com",
+  "client_id": "101150423165308317379",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pka-admin%40pka-assistant.iam.gserviceaccount.com"
 }

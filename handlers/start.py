@@ -29,8 +29,6 @@ def startbot(msg):
         chat, m_id = get_received_msg(msg)
         bot.delete_message(chat.id, m_id)
 
-    user.id = msg.from_user.id
-
     bot.send_photo(
         msg.from_user.id,
         photo=" https://ibb.co/1Mvm7GN",
