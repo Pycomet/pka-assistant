@@ -1,0 +1,10 @@
+{
+    "web": {
+        "client_id": "350752412577-rqiqg0u4o5b3dijr4m0bcjho6coe0tpt.apps.googleusercontent.com",
+        "project_id": "pka-assistant",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret":"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"
+    }
+}
