@@ -40,10 +40,12 @@ app = Flask(__name__)
 try:
     service = build('sheets', 'v4', credentials=creds)
     spreadsheet = service.spreadsheets().values().get(
-        spreadsheetId='1F33sEAoZBdXzsggFW317sBff2P0pAwZmAsPkPV5Io6Y', range='A1:G9').execute()
+        spreadsheetId='1F33sEAoZBdXzsggFW317sBff2P0pAwZmAsPkPV5Io6Y',
+        range='NamesList'
+    ).execute()
 
     logging.info("Google Sheet Connected!")
-    data = spreadsheet['values']
-    logging.info(data)
+    users_data = spreadsheet['values']
+    logging.info(users_data)
 except PermissionDenied:
     logging.error("You do not have permission to access this spreadsheet")
