@@ -1,5 +1,5 @@
-from google.api_core.exceptions import PermissionDenied
-from google.auth.transport.requests import Request
+# from google.api_core.exceptions import PermissionDenied
+# from google.auth.transport.requests import Request
 from google.oauth2.service_account import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -47,5 +47,5 @@ try:
     logging.info("Google Sheet Connected!")
     users_data = spreadsheet['values']
     logging.info(users_data)
-except PermissionDenied:
+except Exception as e:
     logging.error("You do not have permission to access this spreadsheet")
