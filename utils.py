@@ -27,7 +27,6 @@ class DbClient:
                 agent=item[3]
             )
             users.append(user)
-        print(users)
         return users
 
     def get_user_ids(self) -> list:

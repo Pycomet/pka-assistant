@@ -29,7 +29,7 @@ logging.basicConfig(
 
 TOKEN = os.getenv('TOKEN')
 
-DEBUG = True
+DEBUG = False
 SERVER_URL = os.getenv("SERVER_URL")
 
 bot = telebot.TeleBot(token=TOKEN)

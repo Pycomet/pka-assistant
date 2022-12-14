@@ -19,7 +19,7 @@ def webhook():
     return "Application running!", 200
 
 
-pdb.set_trace()
+# pdb.set_trace()
 
 if __name__ == "__main__":
 

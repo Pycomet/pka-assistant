@@ -1,22 +1,21 @@
 from config import *
 from utils import *
 
-# def start_menu(msg):
-#     keyboard = types.ReplyKeyboardMarkup(row_width=2)
 
-#     a = types.KeyboardButton(
-#         translator.translate("I Am A Passenger?", LANGUAGE))
-#     b = types.KeyboardButton(translator.translate(
-#         "I Am A Bus Operator?", LANGUAGE))
-#     c = types.KeyboardButton(translator.translate("Referral Link", LANGUAGE))
-#     d = types.KeyboardButton(translator.translate("About Us", LANGUAGE))
-#     e = types.KeyboardButton(translator.translate(
-#         "Rules & Regulations", LANGUAGE))
-#     f = types.KeyboardButton("Language Switcher")
-#     g = types.KeyboardButton("Contact Us")
+def start_menu(msg):
+    keyboard = types.ReplyKeyboardMarkup(row_width=2)
 
-#     keyboard.add(a, b, c, d, e, f, g)
-#     return keyboard
+    a = types.KeyboardButton("Offical Channel")
+    b = types.KeyboardButton("Poker Group")
+    c = types.KeyboardButton("Rake Group")
+    d = types.KeyboardButton(translator.translate("About Us", LANGUAGE))
+    e = types.KeyboardButton(translator.translate(
+        "Rules & Regulations", LANGUAGE))
+    f = types.KeyboardButton("Language Switcher")
+    g = types.KeyboardButton("Contact Us")
+
+    keyboard.add(a, b, c, d, e, f, g)
+    return keyboard
 
 
 @bot.message_handler(commands=['start'])
