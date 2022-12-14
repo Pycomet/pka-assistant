@@ -24,8 +24,7 @@ def webhook():
 if __name__ == "__main__":
 
     if DEBUG != True:
-        app.run(host="0.0.0.0", threaded=True,
-                port=int(os.environ.get('PORT', 5000)))
+        app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5001)))
     else:
         bot.remove_webhook()
         print("Bot polling!")
