@@ -26,7 +26,7 @@ def startbot(msg):
     bot.send_photo(
         msg.from_user.id,
         photo=" https://ibb.co/1Mvm7GN",
-        caption=f"🤡 Welcome {msg.from_user.first_name}, \n\nI am the Offical <b>PKA Assistant</b> Bot \n\nFor more information join our main channel. Contact @... to get access rights",
+        caption=f"🤡 Welcome {msg.from_user.first_name}, \n\nI am the Offical PKA Assistant Bot \n\nFor more information join our main channel. Contact @... to get access rights",
         parse_mode="html",
         reply_markup=start_menu()
     )
