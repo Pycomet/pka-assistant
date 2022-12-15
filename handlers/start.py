@@ -2,19 +2,14 @@ from config import *
 from utils import *
 
 
-def start_menu(msg):
+def start_menu():
     keyboard = types.ReplyKeyboardMarkup(row_width=2)
 
     a = types.KeyboardButton("Offical Channel")
     b = types.KeyboardButton("Poker Group")
     c = types.KeyboardButton("Rake Group")
-    d = types.KeyboardButton(translator.translate("About Us", LANGUAGE))
-    e = types.KeyboardButton(translator.translate(
-        "Rules & Regulations", LANGUAGE))
-    f = types.KeyboardButton("Language Switcher")
-    g = types.KeyboardButton("Contact Us")
 
-    keyboard.add(a, b, c, d, e, f, g)
+    keyboard.add(a, b, c)
     return keyboard
 
 
@@ -33,6 +28,7 @@ def startbot(msg):
         photo=" https://ibb.co/1Mvm7GN",
         caption=f"🤡 Welcome {msg.from_user.first_name}, \n\nI am the Offical <b>PKA Assistant</b> Bot \n\nFor more information join our main channel. Contact @... to get access rights",
         parse_mode="html",
+        reply_markup=start_menu()
     )
 
 
