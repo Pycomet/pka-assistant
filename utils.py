@@ -9,34 +9,60 @@ def get_received_msg(msg):
     return chat, message_id
 
 
+def get_spreadsheet(name: str):
+    try:
+        service = build("sheets", "v4", credentials=creds)
+        spreadsheet = (
+            service.spreadsheets()
+            .values()
+            .get(
+                spreadsheetId=SPREADSHEET_ID, range=name
+            )
+            .execute()
+        )
+
+        logging.info("Google Sheet Connected! Fetch Complete")
+        data = spreadsheet["values"]
+        return data
+    except Exception as e:
+        logging.error("You do not have permission to access this spreadsheet")
+        return []
+
+
 class DbClient:
     "For Reading, Updating & Deleting Spreadsheet Content"
 
     def __init__(self):
-        pass
+        self.name_sheet = get_spreadsheet('Names list')[1::]
+        self.data_sheet = get_spreadsheet('Sheet4')[1::]
 
-    def get_all_users(self) -> list:
+    def get_users(self) -> list:
         "Fetch All Users IDs in the sheet"
         users = []
 
-        for item in users_data[1::]:
+        for item in self.name_sheet:
             user = User(
-                user_id=item[0],
-                screen_name=item[1],
-                user=item[2],
-                agent=item[3]
+                user_id=item[0], screen_name=item[1], user=item[2], agent=item[3]
             )
             users.append(user)
         return users
 
-    def get_user_ids(self) -> list:
-        "Fetch All Users IDs in the sheet"
-        user_ids = [item[0] for item in users_data]
-        return user_ids[1::]
+    def get_data(self) -> list:
+        "Fetch All Group Data from sheet"
+        data = []
 
-    def get_all_chats(self) -> list:
-        "Fetch All Chat Groups"
-        pass
+        for item in self.data_sheet:
+            raw = Data(
+                name= item[1],
+                club_id= int(item[2]),
+                agent= item[7],
+                agent_rb= int(item[8]),
+                ref_code= item[9],
+                group_id= item[10]
+            )
+            data.append(raw)
+        return data
+
 
     def get_user(self) -> list:
         "Fetch All Users"
