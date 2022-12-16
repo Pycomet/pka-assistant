@@ -19,28 +19,20 @@ def start_menu():
 def startbot(msg):
     "Entry point of the bot discussion -- https://ibb.co/1Mvm7GN"
 
-    bot.send_chat_action(msg.from_user.id, "typing")
+    bot.send_chat_action(msg.chat.id, "typing")
 
     if hasattr(msg, "message_id") and msg.chat.type != 'group':
         chat, m_id = get_received_msg(msg)
         bot.delete_message(chat.id, m_id)
 
 
-    if msg.chat.type != 'group':
-        bot.send_photo(
-            msg.chat.id,
-            photo="https://ibb.co/1Mvm7GN",
-            caption=f"{msg.from_user.first_name} Welcome, \n\nI am the Offical PKA Assistant Bot \n\nFor more information join our main channel. Contact @... to get access rights",
-            parse_mode="html",
-            reply_markup=start_menu(),
-        )
-    else:
-        bot.send_photo(
-            msg.chat.id,
-            photo="https://ibb.co/1Mvm7GN",
-            caption=f"I am the Offical PKA Assistant Bot For All Clubs \n\nFor more information join our main channel. Contact me @pkaassistantbot",
-            parse_mode="html"
-        )
+    bot.send_photo(
+        msg.chat.id,
+        photo="https://ibb.co/1Mvm7GN",
+        caption=f"{msg.from_user.first_name} Welcome, \n\nI am the Offical PKA Assistant Bot \n\nFor more information join our main channel. Contact @... to get access rights",
+        parse_mode="html",
+        reply_markup=start_menu(),
+    )
 
 
 
@@ -49,11 +41,11 @@ def button_callback_answer(call):
     """
     Button Response
     """
-    bot.send_chat_action(call.from_user.id, "typing")
+    bot.send_chat_action(call.chat.id, "typing")
 
     if call.data == "request":
         question = bot.send_message(
-            call.from_user.id,
+            call.chat.id,
             f"Write request in this format: ClubID PlayerID RefCode \n\nexample: 34545345 3453453 234523",
             parse_mode="html"
         )
@@ -63,7 +55,7 @@ def button_callback_answer(call):
     elif call.data == "chip":
 
         question = bot.send_message(
-            call.from_user.id,
+            call.chat.id,
             f"Write request in this format: ClubID PlayerID Chips needed to depoit or withdraw \n\nexample: 34545345 3453453 500",
             parse_mode="html"
         )
@@ -72,7 +64,7 @@ def button_callback_answer(call):
 
     elif call.data == "rake_back":
         question = bot.send_message(
-            call.from_user.id,
+            call.chat.id,
             f"Write request the full club name",
             parse_mode="html"
         )
@@ -87,7 +79,7 @@ def button_callback_answer(call):
         [keyboard.add(types.InlineKeyboardButton(f"{item.name} (ID- {item.club_id})", callback_data="test")) for item in data]
 
         bot.send_message(
-            chat_id=call.from_user.id,
+            chat_id=call.chat.id,
             text="🏁 Here are the list of all our groups;",
             reply_markup=keyboard
         )
@@ -96,7 +88,7 @@ def button_callback_answer(call):
     elif call.data == "payment":
 
         bot.send_message(
-            call.from_user.id,
+            call.chat.id,
             f"Here are the payment options; \
                 \n\nUsdt \n0x0638ca8548c88c5a3c260fb5f8dbb9aaf5ff67da \
                 \n\nBtc \n1Gdm42Y62fPqUPdULYr36weii8tdqeGYST \
@@ -112,7 +104,7 @@ def button_callback_answer(call):
 def rakebot(msg):
     "Get response for club name"
 
-    bot.send_chat_action(msg.from_user.id, "typing")
+    bot.send_chat_action(msg.chat.id, "typing")
     name = msg.text.lower()
 
     data = db_client.get_data()
@@ -121,7 +113,7 @@ def rakebot(msg):
         if group.name.lower() == name:
             # VALID RESPONSE
             bot.send_message(
-                msg.from_user.id,
+                msg.chat.id,
                 f"Rake Back Response: \n\nAgent/Player: {group.agent} \nRB Score: {group.agent_rb}",
                 parse_mode="html"
             )
@@ -129,7 +121,7 @@ def rakebot(msg):
             return True
 
     bot.send_message(
-        msg.from_user.id,
+        msg.chat.id,
         "Invalid Club Name!!"
     )
     return False
@@ -144,7 +136,7 @@ def requestRef(msg):
 
     if len(response) != 3:
         bot.send_message(
-            msg.from_user.id,
+            msg.chat.id,
             "Invalid Response!!"
         )
         return False
@@ -168,14 +160,14 @@ def requestRef(msg):
                 )
             
                 bot.send_message(
-                    msg.from_user.id,
+                    msg.chat.id,
                     f"Ticket Created 🎫"
                 )
 
                 return True
 
         bot.send_message(
-            msg.from_user.id,
+            msg.chat.id,
             f"Invalid IDs Submitted Contact Support @{ADMIN}!!"
         )
         return True
@@ -220,7 +212,7 @@ def requestChips(msg):
                 )
 
                 return True
-                
+
         bot.send_message(
             msg.from_user.id,
             f"Invalid IDs Submitted Contact Support @{ADMIN}!!"
