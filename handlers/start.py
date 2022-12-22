@@ -112,7 +112,7 @@ def rakebot(msg):
         if group.name.lower() == name:
             # VALID RESPONSE
             bot.send_message(
-                msg.from_user.id,
+                msg.chat.id,
                 f"Rake Back Response: \n\nAgent/Player: {group.agent} \nRB Score: {group.agent_rb}",
                 parse_mode="html"
             )
@@ -120,7 +120,7 @@ def rakebot(msg):
             return True
 
     bot.send_message(
-        msg.from_user.id,
+        msg.chat.id,
         "Invalid Club Name!!"
     )
     return False
@@ -135,7 +135,7 @@ def requestRef(msg):
 
     if len(response) != 3:
         bot.send_message(
-            msg.from_user.id,
+            msg.chat.id,
             "Invalid Response!!"
         )
         return False
@@ -159,14 +159,14 @@ def requestRef(msg):
                 )
             
                 bot.send_message(
-                    msg.from_user.id,
+                    msg.chat.id,
                     f"Ticket Created 🎫"
                 )
 
                 return True
 
         bot.send_message(
-            msg.from_user.id,
+            msg.chat.id,
             f"Invalid IDs Submitted Contact Support @{ADMIN}!!"
         )
         return True
@@ -182,7 +182,7 @@ def requestChips(msg):
 
     if len(response) != 3:
         bot.send_message(
-            msg.from_user.id,
+            msg.chat.id,
             "Invalid Response!!"
         )
         return False
@@ -206,14 +206,14 @@ def requestChips(msg):
                 )
 
                 bot.send_message(
-                    msg.from_user.id,
+                    msg.chat.id,
                     f"Ticket Created 🎫"
                 )
 
                 return True
 
         bot.send_message(
-            msg.from_user.id,
+            msg.chat.id,
             f"Invalid IDs Submitted Contact Support @{ADMIN}!!"
         )
         return True
