@@ -32,15 +32,13 @@ def get_spreadsheet(name: str):
 class DbClient:
     "For Reading, Updating & Deleting Spreadsheet Content"
 
-    def __init__(self):
-        self.name_sheet = get_spreadsheet('Names list')[1::]
-        self.data_sheet = get_spreadsheet('Sheet4')[1::]
 
     def get_users(self) -> list:
         "Fetch All Users IDs in the sheet"
         users = []
+        names = get_spreadsheet('Names list')[1::]
 
-        for item in self.name_sheet:
+        for item in names:
             user = User(
                 user_id=item[0], screen_name=item[1], user=item[2], agent=item[3]
             )
@@ -48,10 +46,11 @@ class DbClient:
         return users
 
     def get_data(self) -> list:
-        "Fetch All Group Data from sheet"
-        data = []
 
-        for item in self.data_sheet:
+        data = []
+        sheets = get_spreadsheet('Sheet4')[1::]
+
+        for item in sheets:
             raw = Data(
                 name= item[1],
                 club_id= int(item[2]),
