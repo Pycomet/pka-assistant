@@ -23,6 +23,7 @@ def get_spreadsheet(name: str):
 
         logging.info("Google Sheet Connected! Fetch Complete")
         data = spreadsheet["values"]
+        print(data)
         return data
     except Exception as e:
         logging.error("You do not have permission to access this spreadsheet")
@@ -33,8 +34,9 @@ class DbClient:
     "For Reading, Updating & Deleting Spreadsheet Content"
 
 
-    def get_users(self) -> list:
-        "Fetch All Users IDs in the sheet"
+    def get_users(self, name: str="") -> list:
+        "Fetch All Users IDs in the sheet By Club Name"
+        # BY CLUB NAME NOT IMPLEMENTED YET!!
         users = []
         names = get_spreadsheet('Names list')[1::]
 
@@ -48,18 +50,23 @@ class DbClient:
     def get_data(self) -> list:
 
         data = []
-        sheets = get_spreadsheet('Sheet4')[1::]
+        sheets = get_spreadsheet('Club Status!A1:J44')[1::]
 
         for item in sheets:
-            raw = Data(
-                name= item[1],
-                club_id= int(item[2]),
-                agent= item[7],
-                agent_rb= int(item[8]),
-                ref_code= item[9],
-                group_id= item[10]
-            )
-            data.append(raw)
+            if item[4] == "Yes":
+                raw = Data(
+                    name= item[0],
+                    club_id= int(item[2]),
+                    agent= item[8],
+                    agent_rb= 0 if item[7] == "" else int(item[7]),
+                    ref_code= "1234",
+                    group_id= item[9]
+                )
+                data.append(raw)
+            else:
+                logging.warn(f"Inactive Chat Group - {item[0]}")
+
+        print(data)
         return data
 
 

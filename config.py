@@ -29,7 +29,7 @@ logging.basicConfig(
 
 TOKEN = os.getenv("TOKEN")
 
-DEBUG = False
+DEBUG = True
 SERVER_URL = os.getenv("SERVER_URL")
 ADMIN = os.getenv('ADMIN')
 
@@ -38,3 +38,6 @@ app = Flask(__name__)
 
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 
+CLUB_SHEET_NAMES = os.getenv("CLUB_SHEET_NAMES")
+
+default_sheet_names = CLUB_SHEET_NAMES.split(",")

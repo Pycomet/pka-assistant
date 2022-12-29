@@ -72,6 +72,7 @@ def button_callback_answer(call):
     
     elif call.data == "all_clubs":
         "Returns A List Of All Clubs"
+        bot.send_chat_action(call.message.chat.id, "typing")
         data = db_client.get_data()
 
         keyboard = types.InlineKeyboardMarkup(row_width=1)
@@ -79,7 +80,7 @@ def button_callback_answer(call):
 
         bot.send_message(
             chat_id=call.message.chat.id,
-            text="🏁 Here are the list of all our groups;",
+            text="🏁 Here are the list of all our active(only) clubs ;",
             reply_markup=keyboard
         )
 
@@ -113,7 +114,7 @@ def rakebot(msg):
             # VALID RESPONSE
             bot.send_message(
                 msg.chat.id,
-                f"Rake Back Response: \n\nAgent/Player: {group.agent} \nRB Score: {group.agent_rb}",
+                f"Rake Back Response For <b>{group.name}</b>: \n\nAgent/Player: {group.agent} \nRB Score: {group.agent_rb}",
                 parse_mode="html"
             )
 
