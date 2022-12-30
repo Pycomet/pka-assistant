@@ -38,13 +38,19 @@ class DbClient:
         "Fetch All Users IDs in the sheet By Club Name"
         # BY CLUB NAME NOT IMPLEMENTED YET!!
         users = []
-        names = get_spreadsheet('Names list')[1::]
+        names = get_spreadsheet(name)[1::]
 
         for item in names:
-            user = User(
-                user_id=item[0], screen_name=item[1], user=item[2], agent=item[3]
-            )
-            users.append(user)
+            try:
+                user = User(
+                    user_id=int(item[0]) or 0,
+                    screen_name=item[1] or "",
+                    user=item[2] or "",
+                    agent=item[3] or ""
+                )
+                users.append(user)
+            except:
+                logging.warn(f"Issue writing User to Model - {item}")
         return users
 
     def get_data(self) -> list:

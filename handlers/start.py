@@ -45,7 +45,7 @@ def button_callback_answer(call):
     if call.data == "request":
         question = bot.send_message(
             call.message.chat.id,
-            f"Write request in this format: ClubID PlayerID RefCode \n\nexample: 34545345 3453453 234523",
+            f"Write request in this format: ClubID GameName PlayerID RefCode(Optional) \n\nexample: 1113888 PPPoker 1209729 1234",
             parse_mode="html"
         )
 
@@ -55,7 +55,7 @@ def button_callback_answer(call):
 
         question = bot.send_message(
             call.message.chat.id,
-            f"Write request in this format: ClubID PlayerID Chips needed to depoit or withdraw \n\nexample: 34545345 3453453 500",
+            f"Write request in this format: ClubID GameName PlayerID Chips needed to depoit or withdraw \n\nexample: 1113888 PPPoker 1209729 500",
             parse_mode="html"
         )
 
@@ -134,7 +134,7 @@ def requestRef(msg):
     "RequestBy Ref"
     response = msg.text.split(" ")
 
-    if len(response) != 3:
+    if len(response) != 3 and len(response) != 4:
         bot.send_message(
             msg.chat.id,
             "Invalid Response!!"
@@ -145,26 +145,44 @@ def requestRef(msg):
         
         # validation data
         data = db_client.get_data()
-        users = db_client.get_users()
+        users = db_client.get_users(name=response[1])
 
-        id_list = [i.user_id for i in users]
+        if len(users) > 0:
+            id_list = [i.user_id for i in users]
 
-        for each in data:
-            if each.club_id == int(response[0]) and each.ref_code == response[2] and response[1] in id_list:
-                logging.info("Valid Request")
+            for each in data:
+                if len(response) == 3:
+                    if each.club_id == int(response[0]) and int(response[2]) in id_list:
+                        logging.info("Valid Request")
 
-                bot.send_message(
-                    int(each.group_id),
-                    f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
-                    parse_mode="html"
-                )
-            
-                bot.send_message(
-                    msg.chat.id,
-                    f"Ticket Created 🎫"
-                )
+                        bot.send_message(
+                            int(each.group_id),
+                            f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
+                            parse_mode="html"
+                        )
+                    
+                        bot.send_message(
+                            msg.chat.id,
+                            f"Ticket Created 🎫"
+                        )
 
-                return True
+                        return True
+                else:
+                    if each.club_id == int(response[0]) and each.ref_code == response[3] and int(response[2]) in id_list:
+                        logging.info("Valid Request")
+
+                        bot.send_message(
+                            int(each.group_id),
+                            f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
+                            parse_mode="html"
+                        )
+                    
+                        bot.send_message(
+                            msg.chat.id,
+                            f"Ticket Created 🎫"
+                        )
+
+                        return True
 
         bot.send_message(
             msg.chat.id,
@@ -181,7 +199,7 @@ def requestChips(msg):
     "RequestBy Ref"
     response = msg.text.split(" ")
 
-    if len(response) != 3:
+    if len(response) != 4:
         bot.send_message(
             msg.chat.id,
             "Invalid Response!!"
@@ -192,26 +210,27 @@ def requestChips(msg):
         
         # validation data
         data = db_client.get_data()
-        users = db_client.get_users()
+        users = db_client.get_users(name=response[1])
 
-        id_list = [i.user_id for i in users]
+        if len(users) > 0:
+            id_list = [i.user_id for i in users]
 
-        for each in data:
-            if each.club_id == int(response[0]) and response[1] in id_list:
-                logging.info("Valid Request")
+            for each in data:
+                if each.club_id == int(response[0]) and int(response[2]) in id_list:
+                    logging.info("Valid Request")
 
-                bot.send_message(
-                    int(each.group_id),
-                    f"Club Chips Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nChips Needed: {response[2]}",
-                    parse_mode="html"
-                )
+                    bot.send_message(
+                        int(each.group_id),
+                        f"Club Chips Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nChips Needed: {response[3]}",
+                        parse_mode="html"
+                    )
 
-                bot.send_message(
-                    msg.chat.id,
-                    f"Ticket Created 🎫"
-                )
+                    bot.send_message(
+                        msg.chat.id,
+                        f"Ticket Created 🎫"
+                    )
 
-                return True
+                    return True
 
         bot.send_message(
             msg.chat.id,
