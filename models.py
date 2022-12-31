@@ -18,7 +18,7 @@ class Data:
     name: str = ""
     club_id: int = 0
     agent: str = ""
-    agent_rb: int = 0
+    agent_rb: str = ""
     ref_code: str = ""
     group_id: int = 0
 

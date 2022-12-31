@@ -64,8 +64,8 @@ class DbClient:
                     name= item[0],
                     club_id= int(item[2]),
                     agent= item[8],
-                    agent_rb= 0 if item[7] == "" else int(item[7]),
-                    ref_code= "1234",
+                    agent_rb= item[7],
+                    ref_code= "",
                     group_id= item[9]
                 )
                 data.append(raw)

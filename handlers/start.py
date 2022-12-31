@@ -114,7 +114,7 @@ def rakebot(msg):
             # VALID RESPONSE
             bot.send_message(
                 msg.chat.id,
-                f"Rake Back Response For <b>{group.name}</b>: \n\nAgent/Player: {group.agent} \nRB Score: {group.agent_rb}",
+                f"Rake Back Response For <b>{group.name}</b>: \n\nAgent/Player(s): {group.agent} \n<b>RB Score(s)</b>: {group.agent_rb}",
                 parse_mode="html"
             )
 
