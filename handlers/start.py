@@ -111,12 +111,25 @@ def rakebot(msg):
 
     for group in data:
         if group.name.lower() == name:
-            # VALID RESPONSE
-            bot.send_message(
-                msg.chat.id,
-                f"Rake Back Response For <b>{group.name}</b>: \n\n<b>Agent/Player(s)</b>: {group.agent} \n<b>RB Score(s)</b>: {group.agent_rb}",
-                parse_mode="html"
-            )
+            players = group.agent.strip("\n").split(",")
+            players_rb = group.agent_rb.strip("\n").split(",")
+
+            
+            if str(msg.from_user.username) in players:
+                position = players.index(str(msg.from_user.username))
+                # VALID RESPONSE
+                bot.send_message(
+                    msg.chat.id,
+                    f"Rake Back Response For <b>{group.name}</b>: \n\n<b>Agent/Player</b>: {players[position]} \n<b>RB Score(s)</b>: {players_rb[position]}",
+                    parse_mode="html"
+                )
+            else:
+                bot.send_message(
+                    msg.chat.id,
+                    f"Rake Back Response For <b>{group.name}</b>: \n\n<b>Agent/Player</b>: {msg.from_user.username} \n<b>RB Score(s)</b>: No Rake Back ",
+                    parse_mode="html"
+                )
+
 
             return True
 
