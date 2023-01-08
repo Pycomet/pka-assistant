@@ -22,6 +22,6 @@ RUN pip install -r requirements.txt
 # add app
 COPY . .
 
-EXPOSE 5001
+EXPOSE 5002
 
 CMD [ "python", "main.py" ]
