@@ -1,6 +1,7 @@
 from config import *
 from utils import *
 
+
 def start_menu():
     keyboard = types.InlineKeyboardMarkup(row_width=2)
 
@@ -32,7 +33,6 @@ def startbot(msg):
         parse_mode="html",
         reply_markup=start_menu(),
     )
-
 
 
 @bot.callback_query_handler(func=lambda c: True)
@@ -69,21 +69,21 @@ def button_callback_answer(call):
         )
 
         bot.register_next_step_handler(question, rakebot)
-    
+
     elif call.data == "all_clubs":
         "Returns A List Of All Clubs"
         bot.send_chat_action(call.message.chat.id, "typing")
         data = db_client.get_data()
 
         keyboard = types.InlineKeyboardMarkup(row_width=1)
-        [keyboard.add(types.InlineKeyboardButton(f"{item.name} (ID- {item.club_id})", callback_data="test")) for item in data]
+        [keyboard.add(types.InlineKeyboardButton(
+            f"{item.name} (ID- {item.club_id})", callback_data="test")) for item in data]
 
         bot.send_message(
             chat_id=call.message.chat.id,
             text="🏁 Here are the list of all our active(only) clubs ;",
             reply_markup=keyboard
         )
-
 
     elif call.data == "payment":
 
@@ -100,7 +100,6 @@ def button_callback_answer(call):
         pass
 
 
-
 def rakebot(msg):
     "Get response for club name"
 
@@ -114,7 +113,6 @@ def rakebot(msg):
             players = group.agent.strip("\n").split(",")
             players_rb = group.agent_rb.strip("\n").split(",")
 
-            
             if str(msg.from_user.username) in players:
                 position = players.index(str(msg.from_user.username))
                 # VALID RESPONSE
@@ -130,7 +128,6 @@ def rakebot(msg):
                     parse_mode="html"
                 )
 
-
             return True
 
     bot.send_message(
@@ -138,9 +135,6 @@ def rakebot(msg):
         "Invalid Club Name!!"
     )
     return False
-
-
-
 
 
 def requestRef(msg):
@@ -155,7 +149,7 @@ def requestRef(msg):
         return False
 
     else:
-        
+
         # validation data
         data = db_client.get_data()
         users = db_client.get_users(name=response[1])
@@ -165,7 +159,7 @@ def requestRef(msg):
 
             for each in data:
                 if len(response) == 3:
-                    if each.club_id == int(response[0]) and int(response[2]) in id_list:
+                    if each.club_id == response[0] and int(response[2]) in id_list:
                         logging.info("Valid Request")
 
                         bot.send_message(
@@ -173,7 +167,7 @@ def requestRef(msg):
                             f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
                             parse_mode="html"
                         )
-                    
+
                         bot.send_message(
                             msg.chat.id,
                             f"Ticket Created 🎫"
@@ -181,7 +175,7 @@ def requestRef(msg):
 
                         return True
                 else:
-                    if each.club_id == int(response[0]) and each.ref_code == response[3] and int(response[2]) in id_list:
+                    if each.club_id == response[0] and each.ref_code == response[3] and int(response[2]) in id_list:
                         logging.info("Valid Request")
 
                         bot.send_message(
@@ -189,7 +183,7 @@ def requestRef(msg):
                             f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
                             parse_mode="html"
                         )
-                    
+
                         bot.send_message(
                             msg.chat.id,
                             f"Ticket Created 🎫"
@@ -204,10 +198,6 @@ def requestRef(msg):
         return True
 
 
-
-
-
-
 def requestChips(msg):
     "RequestBy Ref"
     response = msg.text.split(" ")
@@ -220,7 +210,7 @@ def requestChips(msg):
         return False
 
     else:
-        
+
         # validation data
         data = db_client.get_data()
         users = db_client.get_users(name=response[1])
@@ -229,7 +219,7 @@ def requestChips(msg):
             id_list = [i.user_id for i in users]
 
             for each in data:
-                if each.club_id == int(response[0]) and int(response[2]) in id_list:
+                if each.club_id == response[0] and int(response[2]) in id_list:
                     logging.info("Valid Request")
 
                     bot.send_message(

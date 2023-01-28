@@ -11,15 +11,12 @@ class User:
     agent: str = ""
 
 
-
 @dataclass
 class Data:
     "Bot Data Sheet Model"
     name: str = ""
-    club_id: int = 0
+    club_id: str = 0
     agent: str = ""
     agent_rb: str = ""
     ref_code: str = ""
     group_id: int = 0
-
-

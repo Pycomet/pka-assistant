@@ -33,8 +33,7 @@ def get_spreadsheet(name: str):
 class DbClient:
     "For Reading, Updating & Deleting Spreadsheet Content"
 
-
-    def get_users(self, name: str="") -> list:
+    def get_users(self, name: str = "") -> list:
         "Fetch All Users IDs in the sheet By Club Name"
         # BY CLUB NAME NOT IMPLEMENTED YET!!
         users = []
@@ -61,12 +60,12 @@ class DbClient:
         for item in sheets:
             if item[4] == "Yes":
                 raw = Data(
-                    name= item[0],
-                    club_id= int(item[2]),
-                    agent= item[14],
-                    agent_rb= item[13],
-                    ref_code= item[16] if len(item) > 16 else "",
-                    group_id= item[15]
+                    name=item[0],
+                    club_id=item[2],
+                    agent=item[14],
+                    agent_rb=item[13],
+                    ref_code=item[16] if len(item) > 16 else "",
+                    group_id=item[15]
                 )
                 data.append(raw)
             else:
@@ -74,7 +73,6 @@ class DbClient:
 
         print(data)
         return data
-
 
     def get_user(self) -> list:
         "Fetch All Users"
