@@ -37,3 +37,5 @@ bot = telebot.TeleBot(token=TOKEN, num_threads=5)
 app = Flask(__name__)
 
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
+
+handler_state = {}

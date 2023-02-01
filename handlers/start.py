@@ -26,10 +26,9 @@ def startbot(msg):
         chat, m_id = get_received_msg(msg)
         bot.delete_message(chat.id, m_id)
 
-    bot.send_photo(
+    bot.send_message(
         msg.chat.id,
-        photo="https://ibb.co/1Mvm7GN",
-        caption=f"{msg.from_user.first_name} Welcome, \n\nI am the Offical PKA Assistant Bot \n\nFor more information join our main channel. Contact @... to get access rights",
+        f"{msg.from_user.first_name} Welcome, \n\nI am the Offical PKA Assistant Bot \n\nFor more information join our main channel. Contact @... to get access rights",
         parse_mode="html",
         reply_markup=start_menu(),
     )
@@ -43,23 +42,23 @@ def button_callback_answer(call):
     bot.send_chat_action(call.message.chat.id, "typing")
 
     if call.data == "request":
-        question = bot.send_message(
+        bot.send_message(
             call.message.chat.id,
-            f"Write request in this format: ClubID GameName PlayerID RefCode(Optional) \n\nexample: 1113888 PPPoker 1209729 1234",
+            f"Write request in this format: RequestType ClubID GameName PlayerID RefCode(Optional) \n\nexample: Club 1113888 PPPoker 1209729 1234",
             parse_mode="html"
         )
 
-        bot.register_next_step_handler(question, requestRef)
+        # bot.register_next_step_handler(question, requestRef)
 
     elif call.data == "chip":
 
-        question = bot.send_message(
+        bot.send_message(
             call.message.chat.id,
-            f"Write request in this format: ClubID GameName PlayerID Chips needed to depoit or withdraw \n\nexample: 1113888 PPPoker 1209729 500",
+            f"Write request in this format: RequestType ClubID GameName PlayerID Chips needed to depoit or withdraw \n\nexample: Chip 1113888 PPPoker 1209729 500",
             parse_mode="html"
         )
 
-        bot.register_next_step_handler(question, requestChips)
+        # bot.register_next_step_handler(question, requestChips)
 
     elif call.data == "rake_back":
         question = bot.send_message(
@@ -135,108 +134,3 @@ def rakebot(msg):
         "Invalid Club Name!!"
     )
     return False
-
-
-def requestRef(msg):
-    "RequestBy Ref"
-    response = msg.text.split(" ")
-
-    if len(response) != 3 and len(response) != 4:
-        bot.send_message(
-            msg.chat.id,
-            "Invalid Response!!"
-        )
-        return False
-
-    else:
-
-        # validation data
-        data = db_client.get_data()
-        users = db_client.get_users(name=response[1])
-
-        if len(users) > 0:
-            id_list = [i.user_id for i in users]
-
-            for each in data:
-                if len(response) == 3:
-                    if each.club_id == response[0] and int(response[2]) in id_list:
-                        logging.info("Valid Request")
-
-                        bot.send_message(
-                            int(each.group_id),
-                            f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
-                            parse_mode="html"
-                        )
-
-                        bot.send_message(
-                            msg.chat.id,
-                            f"Ticket Created 🎫"
-                        )
-
-                        return True
-                else:
-                    if each.club_id == response[0] and each.ref_code == response[3] and int(response[2]) in id_list:
-                        logging.info("Valid Request")
-
-                        bot.send_message(
-                            int(each.group_id),
-                            f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nReference Code: {each.ref_code}",
-                            parse_mode="html"
-                        )
-
-                        bot.send_message(
-                            msg.chat.id,
-                            f"Ticket Created 🎫"
-                        )
-
-                        return True
-
-        bot.send_message(
-            msg.chat.id,
-            f"Invalid IDs Submitted Contact Support @{ADMIN}!!"
-        )
-        return True
-
-
-def requestChips(msg):
-    "RequestBy Ref"
-    response = msg.text.split(" ")
-
-    if len(response) != 4:
-        bot.send_message(
-            msg.chat.id,
-            "Invalid Response!!"
-        )
-        return False
-
-    else:
-
-        # validation data
-        data = db_client.get_data()
-        users = db_client.get_users(name=response[1])
-
-        if len(users) > 0:
-            id_list = [i.user_id for i in users]
-
-            for each in data:
-                if each.club_id == response[0] and int(response[2]) in id_list:
-                    logging.info("Valid Request")
-
-                    bot.send_message(
-                        int(each.group_id),
-                        f"Club Chips Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[1]} \n\nChips Needed: {response[3]}",
-                        parse_mode="html"
-                    )
-
-                    bot.send_message(
-                        msg.chat.id,
-                        f"Ticket Created 🎫"
-                    )
-
-                    return True
-
-        bot.send_message(
-            msg.chat.id,
-            f"Invalid IDs Submitted Contact Support @{ADMIN}!!"
-        )
-        return True

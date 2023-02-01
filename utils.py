@@ -26,7 +26,8 @@ def get_spreadsheet(name: str):
         print(data)
         return data
     except Exception as e:
-        logging.error("You do not have permission to access this spreadsheet")
+        logging.error(
+            f"You do not have permission to access this spreadsheet - {name}")
         return []
 
 
