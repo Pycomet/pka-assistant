@@ -52,8 +52,9 @@ def handle_message(message):
             else:
                 return
         else:
-            response = "Invalid format. Use RequestType ClubID GameName PlayerID RefCode(Optional) \n\nexample: Club 1113888 PPPoker 1209729 1234"
-        return bot.reply_to(message, response)
+            logging.info(
+                "Invalid format. Use RequestType ClubID GameName PlayerID RefCode(Optional) \n\nexample: Club 1113888 PPPoker 1209729 1234")
+            return
 
 
 def requestRef(msg):
