@@ -43,8 +43,6 @@ def handle_message(message):
             response = "Request Type: {} ClubID: {}, GameName: {}, PlayerID: {}, RefCode: {}".format(
                 type, club_id, game_name, player_id, ref_code or "None"
             )
-            print(type)
-            print(response)
             if type.lower() == "club":
                 return requestRef(message)
 
@@ -52,7 +50,7 @@ def handle_message(message):
                 return requestChips(message)
 
             else:
-                response = "Invalid RequestType Format"
+                return
         else:
             response = "Invalid format. Use RequestType ClubID GameName PlayerID RefCode(Optional) \n\nexample: Club 1113888 PPPoker 1209729 1234"
         return bot.reply_to(message, response)

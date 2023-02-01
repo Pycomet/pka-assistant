@@ -5,7 +5,6 @@ from utils import *
 @bot.message_handler(commands=["mute"])
 def mutebot(msg):
     "Mute The Bot From Responding"
-    global SILENT
 
     if hasattr(msg, "message_id") and msg.chat.type != 'group':
         chat, m_id = get_received_msg(msg)
