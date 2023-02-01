@@ -113,7 +113,8 @@ def requestRef(msg):
 
         bot.send_message(
             msg.chat.id,
-            f"Hi customer, there are 2 reasons why this is happening, \n\nYour ID is not registered in our database. @{ADMIN} please adjust, kindly wait for our customer support to add and acknowledge that before you may continue to request once more",
+            f"Hi customer, there are 2 reasons why this is happening, \n\nYour ID is not registered in our database. @{ADMIN} please adjust, kindly wait for our customer support to add and acknowledge that before you may continue to request once more \
+                \n\nYou're a noob and typo, please try once more \n\nThank you",
             parse_mode="html"
         )
         return True
@@ -158,7 +159,8 @@ def requestChips(msg):
 
         bot.send_message(
             msg.chat.id,
-            f"Hi customer, there are 2 reasons why this is happening, \n\nYour ID is not registered in our database. @{ADMIN} please adjust, kindly wait for our customer support to add and acknowledge that before you may continue to request once more",
+            f"Hi customer, there are 2 reasons why this is happening, \n\nYour ID is not registered in our database. @{ADMIN} please adjust, kindly wait for our customer support to add and acknowledge that before you may continue to request once more \
+                \n\nYou're a noob and typo, please try once more \n\nThank you",
             parse_mode="html"
         )
         return True
