@@ -23,7 +23,6 @@ def get_spreadsheet(name: str):
 
         logging.info("Google Sheet Connected! Fetch Complete")
         data = spreadsheet["values"]
-        print(data)
         return data
     except Exception as e:
         logging.error(

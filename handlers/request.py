@@ -38,11 +38,11 @@ def handle_message(message):
     else:
         parsed_message = parse_message(message.text.strip())
         if parsed_message:
-            print(parse_message)
             type, club_id, game_name, player_id, ref_code = parsed_message
             response = "Request Type: {} ClubID: {}, GameName: {}, PlayerID: {}, RefCode: {}".format(
                 type, club_id, game_name, player_id, ref_code or "None"
             )
+
             if type.lower() == "club":
                 return requestRef(message)
 
