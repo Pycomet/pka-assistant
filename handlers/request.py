@@ -65,56 +65,37 @@ def requestRef(msg):
 
         if len(users) > 0:
             id_list = [i.user_id for i in users]
-
-
-
+            
             for group in data:
-                if len(response) == 4:
-                    if group.club_id == response[1] and response[3] in id_list:
-                        logging.info("Valid Request")
+                if group.club_id == response[1] and response[3] in id_list:
+                    logging.info("Valid Request")
 
-                        # Get User Reference Code if It Exists
-                        players = group.agent.strip("\n").split(",")
-                        ref_codes = group.ref_code.strip("\n").split(",")
+                    # Get User Reference Code if It Exists
+                    players = group.agent.strip("\n").split(",")
+                    ref_codes = group.ref_code.strip("\n").split(",")
 
-                        if msg.from_user.username in players:
-                            position = players.index(str(msg.from_user.username))
-
-                            bot.send_message(
-                                int(group.group_id),
-                                f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} \n\nPlayer Ref Code: {ref_codes[position]}",
-                                parse_mode="html"
-                            )
-                        else:
-                            bot.send_message(
-                                int(group.group_id),
-                                f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} ",
-                                parse_mode="html"
-                            )
-
-                        bot.send_message(
-                            msg.chat.id,
-                            f"Ticket Created 🎫"
-                        )
-
-                        return True
-                else:
-                    
-                    if group.club_id == response[1] and response[4] in ref_codes and response[3] in id_list:
-                        logging.info("Valid Request")
+                    if msg.from_user.username in players:
+                        position = players.index(str(msg.from_user.username))
 
                         bot.send_message(
                             int(group.group_id),
-                            f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} \n\nReference Code: {group.ref_code}",
+                            f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} \n\nPlayer Ref Code: {ref_codes[position]}",
+                            parse_mode="html"
+                        )
+                    else:
+                        bot.send_message(
+                            int(group.group_id),
+                            f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} ",
                             parse_mode="html"
                         )
 
-                        bot.send_message(
-                            msg.chat.id,
-                            f"Ticket Created 🎫"
-                        )
+                    bot.send_message(
+                        msg.chat.id,
+                        f"Ticket Created 🎫"
+                    )
 
-                        return True
+                    return True
+
 
         bot.send_message(
             msg.chat.id,
