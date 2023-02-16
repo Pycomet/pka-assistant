@@ -64,8 +64,8 @@ def requestRef(msg):
         users = db_client.get_users(name=response[2])
 
         if len(users) > 0:
-            id_list = [i.user_id for i in users]
-            
+            id_list = [str(i.user_id) for i in users]
+
             for group in data:
                 if group.club_id == response[1] and response[3] in id_list:
                     logging.info("Valid Request")
@@ -95,7 +95,6 @@ def requestRef(msg):
                     )
 
                     return True
-
 
         bot.send_message(
             msg.chat.id,
