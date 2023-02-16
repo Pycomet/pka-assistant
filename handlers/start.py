@@ -111,13 +111,14 @@ def rakebot(msg):
         if group.name.lower() == name:
             players = group.agent.strip("\n").split(",")
             players_rb = group.agent_rb.strip("\n").split(",")
+            players_ref = group.ref_code.strip("\n").split(",")
 
             if str(msg.from_user.username) in players:
                 position = players.index(str(msg.from_user.username))
                 # VALID RESPONSE
                 bot.send_message(
                     msg.chat.id,
-                    f"Rake Back Response For <b>{group.name}</b>: \n\n<b>Agent/Player</b>: {players[position]} \n<b>RB Score(s)</b>: {players_rb[position]}",
+                    f"Rake Back Response For <b>{group.name}</b>: \n\n<b>Agent/Player</b>: {players[position]} \n<b>RB Score(s)</b>: {players_rb[position]} \n<b>Ref Code</b>: {players_ref[position]}",
                     parse_mode="html"
                 )
             else:

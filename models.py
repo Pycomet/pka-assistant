@@ -15,8 +15,8 @@ class User:
 class Data:
     "Bot Data Sheet Model"
     name: str = ""
-    club_id: str = 0
+    club_id: str = ""
     agent: str = ""
     agent_rb: str = ""
     ref_code: str = ""
-    group_id: int = 0
+    group_id: str = ""

@@ -2,17 +2,6 @@ from config import *
 from utils import *
 from handlers.start import *
 
-# @bot.message_handler(func=lambda message: True)
-# def requestbot(msg):
-#     "Request Bot Handler For Groups"
-
-#     if msg.chat.type == 'group':
-
-#         requestRef(msg)
-
-#     else:
-#         print(msg)
-
 
 def parse_message(message: str) -> tuple:
     match = re.search("(\w+) (\d+) (\w+) (\d+)(?: (\d+))?", message)
@@ -20,7 +9,7 @@ def parse_message(message: str) -> tuple:
         try:
             # ref_code could be chip count in chip request
             type, club_id, game_name, player_id, ref_code = match.groups()
-            return type, club_id, game_name, int(player_id), ref_code
+            return type, club_id, game_name, player_id, ref_code
         except ValueError:
             type, club_id, game_name, player_id = match.groups()
             return type, club_id, game_name, player_id, None
@@ -61,7 +50,7 @@ def requestRef(msg):
     "RequestBy Ref"
     response = msg.text.split(" ")
 
-    if len(response) != 4 and len(response) != 5:
+    if len(response) != 4:
         bot.send_message(
             msg.chat.id,
             "Invalid Club Request Response!!"
@@ -77,16 +66,31 @@ def requestRef(msg):
         if len(users) > 0:
             id_list = [i.user_id for i in users]
 
-            for each in data:
+
+
+            for group in data:
                 if len(response) == 4:
-                    if each.club_id == response[1] and int(response[3]) in id_list:
+                    if group.club_id == response[1] and response[3] in id_list:
                         logging.info("Valid Request")
 
-                        bot.send_message(
-                            int(each.group_id),
-                            f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[3]} ",
-                            parse_mode="html"
-                        )
+                        # Get User Reference Code if It Exists
+                        players = group.agent.strip("\n").split(",")
+                        ref_codes = group.ref_code.strip("\n").split(",")
+
+                        if msg.from_user.username in players:
+                            position = players.index(str(msg.from_user.username))
+
+                            bot.send_message(
+                                int(group.group_id),
+                                f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} \n\nPlayer Ref Code: {ref_codes[position]}",
+                                parse_mode="html"
+                            )
+                        else:
+                            bot.send_message(
+                                int(group.group_id),
+                                f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} ",
+                                parse_mode="html"
+                            )
 
                         bot.send_message(
                             msg.chat.id,
@@ -95,12 +99,13 @@ def requestRef(msg):
 
                         return True
                 else:
-                    if each.club_id == response[1] and int(each.ref_code) == int(response[4]) and int(response[3]) in id_list:
+                    
+                    if group.club_id == response[1] and response[4] in ref_codes and response[3] in id_list:
                         logging.info("Valid Request")
 
                         bot.send_message(
-                            int(each.group_id),
-                            f"Join Club Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[3]} \n\nReference Code: {each.ref_code}",
+                            int(group.group_id),
+                            f"Join Club Request From @{msg.from_user.username}: \n\nClub: {group.name} \n\nPlayer ID: {response[3]} \n\nReference Code: {group.ref_code}",
                             parse_mode="html"
                         )
 
@@ -141,12 +146,12 @@ def requestChips(msg):
             id_list = [i.user_id for i in users]
 
             for each in data:
-                if each.club_id == response[1] and int(response[3]) in id_list:
+                if each.club_id == response[1] and response[3] in id_list:
                     logging.info("Valid Request")
 
                     bot.send_message(
                         int(each.group_id),
-                        f"Club Chips Request From {msg.from_user.id}: \n\nClub: {each.name} \n\nPlayer ID: {response[3]} \n\nChips Needed: {response[4]}",
+                        f"Club Chips Request From @{msg.from_user.username}: \n\nClub: {each.name} \n\nPlayer ID: {response[3]} \n\nChips Needed: {response[4]}",
                         parse_mode="html"
                     )
 
