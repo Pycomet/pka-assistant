@@ -4,7 +4,7 @@ from handlers.start import *
 
 
 def parse_message(message: str) -> tuple:
-    match = re.search("(\w+) (\d+) (\w+) (\d+)(?: (\d+))?", message)
+    match = re.search("(\w+) (\w+) (\w+) (\w+)(?: (\d+))?", message)
     if match:
         try:
             # ref_code could be chip count in chip request

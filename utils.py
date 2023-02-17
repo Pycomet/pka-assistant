@@ -42,7 +42,7 @@ class DbClient:
         for item in names:
             try:
                 user = User(
-                    user_id=int(item[0]) or 0,
+                    user_id=item[0],
                     screen_name=item[1] or "",
                     user=item[2] or "",
                     agent=item[3] or ""
